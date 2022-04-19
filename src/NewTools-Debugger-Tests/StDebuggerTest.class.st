@@ -388,6 +388,13 @@ StDebuggerTest >> testInitialCodeSelectionAfterStepping [
 ]
 
 { #category : #'tests - raw inspection' }
+StDebuggerTest >> testInterruptedContextProvidesSameContextAsTheActionModelOne [
+
+	debugger := self debuggerOn: session.
+	self assert: debugger interruptedContext equals: debugger debuggerActionModel interruptedContext
+]
+
+{ #category : #'tests - raw inspection' }
 StDebuggerTest >> testInterruptedProcessProvidesSameProcessAsTheActionModelOne [
 
 	debugger := self debuggerOn: session.
