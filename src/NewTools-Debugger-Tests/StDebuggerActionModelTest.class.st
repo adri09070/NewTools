@@ -387,6 +387,12 @@ StDebuggerActionModelTest >> testInitialization [
 		identicalTo: session interruptedContext
 ]
 
+{ #category : #'tests - actions' }
+StDebuggerActionModelTest >> testInterruptedProcessProvidesSameProcessAsTheSessionOne [
+
+	self assert: debugActionModel interruptedProcess equals: debugActionModel session interruptedProcess 
+]
+
 { #category : #'tests - predicates' }
 StDebuggerActionModelTest >> testIsContextAnAssertionFailure [
 	self changeSession: StTestDebuggerProvider new debuggerWithFailingAssertionContext session.

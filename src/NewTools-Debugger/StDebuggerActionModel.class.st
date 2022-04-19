@@ -167,6 +167,12 @@ StDebuggerActionModel >> interruptedContext [
 	^self session interruptedContext
 ]
 
+{ #category : #'API - accessing' }
+StDebuggerActionModel >> interruptedProcess [
+
+	^ self session interruptedProcess 
+]
+
 { #category : #'debug - predicates' }
 StDebuggerActionModel >> isContextAnAssertionFailure [
 
