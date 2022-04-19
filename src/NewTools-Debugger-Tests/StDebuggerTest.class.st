@@ -359,6 +359,13 @@ StDebuggerTest >> testDiscardCodeChangesFor [
 	
 ]
 
+{ #category : #'tests - raw inspection' }
+StDebuggerTest >> testExceptionProvidesSameExceptionAsTheActionModelOne [
+
+	debugger := self debuggerOn: session.
+	self assert: debugger exception equals: debugger debuggerActionModel exception
+]
+
 { #category : #'tests - initialization' }
 StDebuggerTest >> testFastTDD [
 	self debuggerClass fastTDD: nil.

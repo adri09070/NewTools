@@ -562,6 +562,12 @@ StDebugger >> doBrowseReceiverClass [
 	self systemNavigation browse: self stackSelectionReceiverClassContext value
 ]
 
+{ #category : #accessing }
+StDebugger >> exception [
+
+	^ self debuggerActionModel exception
+]
+
 { #category : #stack }
 StDebugger >> expandStackIfLastItemIsSelected [
 	| selection |
@@ -797,7 +803,7 @@ StDebugger >> interruptedProcess [
 StDebugger >> newDebuggerContext [
 
 	^ self class debuggerContextClass new
-		  exception: self session exception;
+		  exception: self exception ;
 		  yourself
 ]
 

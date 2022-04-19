@@ -244,6 +244,12 @@ StDebuggerActionModelTest >> testDynamicShouldFilterStackUpdate [
 ]
 
 { #category : #'tests - actions' }
+StDebuggerActionModelTest >> testExceptionProvidesSameExceptionAsTheSessionOne [
+
+	self assert: debugActionModel exception equals: debugActionModel session exception
+]
+
+{ #category : #'tests - actions' }
 StDebuggerActionModelTest >> testFileOutMethod [
 	debugActionModel fileOutMethod: self.
 	self assert: result equals: self selector
