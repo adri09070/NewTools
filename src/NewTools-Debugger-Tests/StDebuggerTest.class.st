@@ -667,6 +667,13 @@ StDebuggerTest >> testSelectLastStackElementWithoutMoreElements [
 	self assert: stackTable items size equals: startingStackSize
 ]
 
+{ #category : #'tests - raw inspection' }
+StDebuggerTest >> testSessionStackProvidesSameStackAsTheActionModelOne [
+
+	debugger := self debuggerOn: session.
+	self assert: debugger sessionStack equals: debugger debuggerActionModel sessionStack
+]
+
 { #category : #'tests - stack table' }
 StDebuggerTest >> testStackTableAfterReturn [
 	| stackTableItems stackSizeAfterStepIn |
