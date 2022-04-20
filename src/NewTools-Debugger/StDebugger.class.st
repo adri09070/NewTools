@@ -456,7 +456,7 @@ StDebugger >> copyStackToClipboard [
 StDebugger >> createMissingClass [
 
 	| variableNode |
-	variableNode := self session exception variableNode.
+	variableNode := self exception variableNode.
 	[ 
 	| newClassBinding |
 	self flag: 'This method is actually hard to test because it requires user input to complete. How to test that automatically?'.
