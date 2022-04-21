@@ -497,6 +497,33 @@ StDebuggerActionModelTest >> testProceedDebugSession [
 ]
 
 { #category : #'tests - actions' }
+StDebuggerActionModelTest >> testRecompileMethodToInContextNotifyingUpdatesSourceCodeAndContext [
+
+	| oldStack contextChanged expectedNewStack rejectedFromOldStack |
+	contextChanged := debugActionModel topContext.
+
+	debugActionModel session stepIntoUntil: [ :currentContext | 
+		currentContext selector = #squared ].
+	debugActionModel updateTopContext.
+	oldStack := debugActionModel sessionStack.
+	rejectedFromOldStack := { debugActionModel topContext }.
+
+	expectedNewStack := oldStack copyWithoutFirst.
+
+	debugActionModel
+		recompileMethodTo: contextChanged method sourceCode
+		inContext: contextChanged
+		notifying: nil.
+
+	self
+		denyCollection: debugActionModel sessionStack
+		includesAny: rejectedFromOldStack.
+	self
+		assertCollection: debugActionModel sessionStack
+		hasSameElements: expectedNewStack
+]
+
+{ #category : #'tests - actions' }
 StDebuggerActionModelTest >> testRestartContext [
 	|topContext topPC|
 	topContext := 
