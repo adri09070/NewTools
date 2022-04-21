@@ -97,7 +97,7 @@ StDebuggerTest >> tearDown [
 	debugger ifNotNil: [ 
 		debugger unsubscribeFromSystemAnnouncer.
 		debugger close.
-		debugger session ifNotNil: [ :s | s clear ] ].
+		debugger debuggerActionModel ifNotNil: [ :actionModel | actionModel session ifNotNil: [ :s | s clear ] ]].
 	StTestDebuggerProvider removeSelector: #foobar. 
 	StDebuggerObjectForTests compile: 'haltingMethod <haltOrBreakpointForTesting> self halt. ^self' classified: 'util'.
 	super tearDown
