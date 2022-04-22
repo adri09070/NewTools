@@ -5,8 +5,16 @@ You can use me in your tests where messages are sent to a debug session but you 
 Class {
 	#name : #StMockSession,
 	#superclass : #Object,
+	#instVars : [
+		'context'
+	],
 	#category : #'NewTools-Debugger-Tests-Utils'
 }
+
+{ #category : #accessing }
+StMockSession >> context: aContext [
+	context := aContext
+]
 
 { #category : #'debug - session' }
 StMockSession >> implement: aMessage classified: messageCategory inClass: aClass forContext: aContext [
@@ -16,7 +24,12 @@ StMockSession >> implement: aMessage classified: messageCategory inClass: aClass
 
 { #category : #accessing }
 StMockSession >> interruptedContext [
-	 ^self
+	 ^ context
+]
+
+{ #category : #accessing }
+StMockSession >> isContextPostMortem: aContext [
+	^ false
 ]
 
 { #category : #'debugging actions' }

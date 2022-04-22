@@ -576,7 +576,7 @@ StDebuggerActionModelTest >> testStepInto [
 StDebuggerActionModelTest >> testStepIntoQuickMethods [
 	|ctx|
 	ctx := StMockContext new.
-	debugActionModel session: StMockSession new.
+	debugActionModel session: (StMockSession new context: ctx).
 	debugActionModel stepInto: ctx.
 	
 	"When we step into a context, first that context is configured to step into quick method (aContext stepIntoQuickMethod: true),
