@@ -614,7 +614,10 @@ StDebugger >> findFirstRelevantStackIndexIn: aStack [
 
 { #category : #'updating - session' }
 StDebugger >> forceSessionUpdate [
-	self debuggerActionModel update
+
+	self
+		updateStackFromSession: self session;
+		updateExtensionsFrom: self session
 ]
 
 { #category : #api }
