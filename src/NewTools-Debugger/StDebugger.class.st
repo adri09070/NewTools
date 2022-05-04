@@ -582,7 +582,7 @@ StDebugger >> expandStackIfLastItemIsSelected [
 	selection := stackTable selection.
 	selection selectedItem == stackTable items last ifFalse: [ ^ self ].
 	stackTable items: (self filterStack:
-			 (self session stackOfSize: 2 * stackTable items size)).
+			 (self stackOfSize: 2 * stackTable items size)).
 	stackTable selectIndex: selection selectedIndex
 ]
 
@@ -1047,6 +1047,11 @@ StDebugger >> stackIconForContext: context [
 
 	self unsavedCodeChanges at: context ifAbsent: [ ^ nil ].
 	^ self iconNamed: #overlayDirty
+]
+
+{ #category : #'accessing - widgets' }
+StDebugger >> stackOfSize: anInteger [
+	^ self debuggerActionModel stackOfSize: anInteger
 ]
 
 { #category : #'commands - support' }

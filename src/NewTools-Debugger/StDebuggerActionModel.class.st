@@ -416,6 +416,11 @@ StDebuggerActionModel >> shouldFilterStack [
 	^ self filterStack and: [ self class shouldFilterStack ]
 ]
 
+{ #category : #accessing }
+StDebuggerActionModel >> stackOfSize: anInteger [
+	^ self session stackOfSize: anInteger
+]
+
 { #category : #context }
 StDebuggerActionModel >> statusStringForContext [
 
