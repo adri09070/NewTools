@@ -1155,7 +1155,7 @@ StDebugger >> updateCodeFromContext: aContext [
 	aContext ifNil: [ ^ self clearCode ].
 	
 	self recordUnsavedCodeChanges.
-	selectionInterval := self session selectedCodeRangeForContext: aContext.
+	selectionInterval := self debuggerActionModel selectedCodeRangeForContext: aContext.
 	aContext sourceCode = self code text 
 		ifFalse: [ self updateSourceCodeFor: aContext ].
 	self code beForContext: aContext.

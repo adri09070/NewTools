@@ -591,6 +591,20 @@ StDebuggerActionModelTest >> testRunToSelectionInContext [
 ]
 
 { #category : #'tests - actions' }
+StDebuggerActionModelTest >> testSelectedCodeRangeForContext [
+	|method node|
+	method := (self class >> #setResult).
+	node :=  method ast statements second.
+	
+	self assert: (debugActionModel selectedCodeRangeForContext: debugActionModel interruptedContext) equals: (session selectedCodeRangeForContext: session interruptedContext).
+	
+	debugActionModel runToSelection: (node start to: node stop) inContext: session interruptedContext.
+	
+	self assert: (debugActionModel selectedCodeRangeForContext: debugActionModel interruptedContext) equals: (session selectedCodeRangeForContext: session interruptedContext).
+	
+]
+
+{ #category : #'tests - actions' }
 StDebuggerActionModelTest >> testSessionStackProvidesSameStackAsTheSessionOne [
 
 	self assert: debugActionModel sessionStack equals: debugActionModel session stack
