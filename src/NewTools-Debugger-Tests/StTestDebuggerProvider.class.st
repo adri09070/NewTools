@@ -132,7 +132,6 @@ StTestDebuggerProvider >> intermediateRecursiveMethodCall [
 
 { #category : #helpers }
 StTestDebuggerProvider >> methodProducingDNU [
-
 	^ self foobar
 ]
 
@@ -143,7 +142,7 @@ StTestDebuggerProvider >> newDebugger [
 	debugger := StDebugger basicNew.
 	debugger session: session.
 	debugger debuggerActionModel updateContextPredicate.
-	^ debugger
+	^ debugger 
 ]
 
 { #category : #helpers }

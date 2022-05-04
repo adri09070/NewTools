@@ -48,6 +48,11 @@ StDebuggerUsingSpecSelectorMock >> columnInspectorsSpec [
 ]
 
 { #category : #accessing }
+StDebuggerUsingSpecSelectorMock >> debuggerActionModel [
+	self shouldBeImplemented.
+]
+
+{ #category : #accessing }
 StDebuggerUsingSpecSelectorMock >> debuggerClass [ 	
 	^self
 ]

@@ -399,11 +399,11 @@ StDebugger >> canExecuteReturnCommand [
 
 { #category : #actions }
 StDebugger >> clear [
-
-	extensionToolsNotebook pages do: [ :page | 
-		page activePresenter windowIsClosing ].
+	self flag: 'nil check to avoid'.
+	 extensionToolsNotebook ifNotNil:[:notebook| notebook pages do: [ :page | 
+		page activePresenter windowIsClosing ]].
 	extensionTools := nil.
-	self unsubscribeFromSystemAnnouncer.	
+	self debuggerActionModel unsubscribeFromSystemAnnouncer.
 	self unsubscribeFromActionModel.
 	
 	"When we programmatically close the window, we do not need to terminate the session as it was already cleared"
@@ -591,6 +591,11 @@ StDebugger >> extensionTools [
 	^ extensionTools ifNil: [ extensionTools := OrderedCollection new ]
 ]
 
+{ #category : #accessing }
+StDebugger >> extensionToolsNotebook [
+	^ extensionToolsNotebook ifNil:[extensionToolsNotebook := OrderedCollection new]
+]
+
 { #category : #actions }
 StDebugger >> fileOutSelectedContext [
 	self debuggerActionModel
@@ -641,7 +646,6 @@ StDebugger >> initialize [
 	self debuggerActionModel updateContextPredicate.	
 	self subscribeToActionModel.
 	self forceSessionUpdate.
-	self subscribeToMethodAddedAnnouncement.
 	
 	programmaticallyClosed := false.
 ]
@@ -891,8 +895,11 @@ StDebugger >> proceedDebugSession [
 { #category : #actions }
 StDebugger >> recompileMethodTo: aString inContext: aContext notifying: aNotifyer [
 
-	^ self debuggerActionModel recompileMethodTo: aString inContext: aContext notifying: aNotifyer.
-
+	aContext ifNil: [ ^ self ].
+	self session
+		recompileMethodTo: aString
+		inContext: aContext
+		notifying: aNotifyer
 ]
 
 { #category : #'presenter - code' }
@@ -1091,13 +1098,13 @@ StDebugger >> subscribeToActionModel [
 	self debuggerActionModel addUpdateEventListener: (self class updateBlockFor: self)
 ]
 
-{ #category : #'system subscriptions' }
+{ #category : #'accessing - widgets' }
 StDebugger >> subscribeToMethodAddedAnnouncement [
 
-	SystemAnnouncer uniqueInstance weak
+	"SystemAnnouncer uniqueInstance weak
 		when: MethodAdded
 		send: #updateAfterMethodAdded
-		to: self
+		to: self"
 ]
 
 { #category : #'accessing - widgets' }
@@ -1124,16 +1131,16 @@ StDebugger >> unsubscribeFromActionModel [
 	"self debuggerActionModel removeEventListener: "
 ]
 
-{ #category : #'system subscriptions' }
+{ #category : #'ui requests' }
 StDebugger >> unsubscribeFromSystemAnnouncer [
 
-	SystemAnnouncer uniqueInstance unsubscribe: self
+	"SystemAnnouncer uniqueInstance unsubscribe: self"
 ]
 
 { #category : #'updating - widgets' }
 StDebugger >> updateAfterMethodAdded [
-	debuggerActionModel updateContextPredicate.
-	self updateToolbar 
+	"debuggerActionModel updateContextPredicate.
+	self updateToolbar "
 ]
 
 { #category : #'updating - widgets' }

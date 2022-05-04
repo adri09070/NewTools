@@ -11,9 +11,10 @@ Class {
 	#category : #'NewTools-Debugger-Tests-Utils'
 }
 
-{ #category : #accessing }
-StMockSession >> context: aContext [
-	context := aContext
+{ #category : #'debugging actions' }
+StMockSession >> doesNotUnderstand: aMessage [
+
+	^ self
 ]
 
 { #category : #'debug - session' }
@@ -24,12 +25,7 @@ StMockSession >> implement: aMessage classified: messageCategory inClass: aClass
 
 { #category : #accessing }
 StMockSession >> interruptedContext [
-	 ^ context
-]
-
-{ #category : #accessing }
-StMockSession >> isContextPostMortem: aContext [
-	^ false
+	 ^ self
 ]
 
 { #category : #'debugging actions' }

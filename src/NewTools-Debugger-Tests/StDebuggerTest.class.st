@@ -78,7 +78,7 @@ StDebuggerTest >> replaceMethodWithQuickMethodStepping [
 	dbg code type: newSource.
 	dbg code update.
 	dbg acceptCodeChanges: newSource forContext: context.
-	dbg updateStep
+	dbg debuggerActionModel updateIfAble
 ]
 
 { #category : #running }
@@ -95,11 +95,16 @@ StDebuggerTest >> tearDown [
 	session clear.
 	self debuggerClass fastTDD: oldFastTDD.
 	debugger ifNotNil: [ 
-		debugger unsubscribeFromSystemAnnouncer.
+		"debugger unsubscribeFromSystemAnnouncer."
 		debugger close.
-		debugger debuggerActionModel ifNotNil: [ :actionModel | actionModel session ifNotNil: [ :s | s clear ] ]].
-	StTestDebuggerProvider removeSelector: #foobar. 
-	StDebuggerObjectForTests compile: 'haltingMethod <haltOrBreakpointForTesting> self halt. ^self' classified: 'util'.
+		debugger debuggerActionModel ifNotNil: [ :actionModel | 
+			actionModel session ifNotNil: [ :s | s clear ].
+			actionModel unsubscribeFromSystemAnnouncer ] ].
+	StTestDebuggerProvider removeSelector: #foobar.
+	StDebuggerObjectForTests
+		compile:
+		'haltingMethod <haltOrBreakpointForTesting> self halt. ^self'
+		classified: 'util'.
 	super tearDown
 ]
 
@@ -647,7 +652,7 @@ StDebuggerTest >> testSavingQuickMethodWhenSteppingIntoStackSizeBeforeIsTheSameA
 StDebuggerTest >> testSavingQuickMethodWhenSteppingIntoStaysInQuickMethod [
 	
 	"We tell the parent that we wanted to step into"
-	self replaceMethodWithQuickMethodStepping.
+	self replaceMethodWithQuickMethodStepping. 
 	
 	self assert: dbg stackTable items first sourceCode equals: 'haltingMethod ^ 1'
 ]
@@ -857,6 +862,7 @@ StDebuggerTest >> testToolbarInDNUContext [
 	commands do: [ :c| self assert: c isEnabled].
 	
 	"We step into the DNU, buttons should be disabled"
+	
 	debugger stepInto.
 	debugger stepOver.
 
