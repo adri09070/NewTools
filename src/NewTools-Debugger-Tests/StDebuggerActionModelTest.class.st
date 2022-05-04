@@ -617,9 +617,8 @@ StDebuggerActionModelTest >> testStackOfSizeWhenStackIsBigger [
 	oldStack := debugActionModel session stack.
 	
 	debugActionModel stepInto: debugActionModel interruptedContext.
-	debugActionModel stackOfSize: oldStack size + 13.
+	newStack := debugActionModel stackOfSize: oldStack size + 13.
 	
-	newStack := debugActionModel session stack.	
 	self assert: newStack size - oldStack size equals: 1.
 	self assertCollection: oldStack equals: (newStack collect: [ :obj | obj ] from: 2 to: oldStack size + 1)
 	
@@ -631,9 +630,8 @@ StDebuggerActionModelTest >> testStackOfSizeWhenStackIsNotBigger [
 	| oldStack newStack |
 	oldStack := debugActionModel session stack.
 		
-	debugActionModel stackOfSize: oldStack size + 13.
+	newStack := debugActionModel stackOfSize: oldStack size + 13.
 	
-	newStack := debugActionModel session stack.	
 	self assert: newStack size - oldStack size equals: 0.
 	self assertCollection: oldStack equals: (newStack collect: [ :obj | obj ] from: 1 to: oldStack size)
 	
