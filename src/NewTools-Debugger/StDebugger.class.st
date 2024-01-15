@@ -1023,12 +1023,12 @@ StDebugger >> requestProtocolIn: aClass [
 	applicants := self protocolSuggestionsFor: aClass.
 	entryCompletion := EntryCompletion new
 		                   dataSourceBlock: [ :currText | applicants ];
-		                   filterBlock: [ :currApplicant :currText | 
-			                   currText size > 3 and: [ 
+		                   filterBlock: [ :currApplicant :currText |
+			                   currText size > 3 and: [
 					                   currApplicant asLowercase includesSubstring:
 							                   currText asString asLowercase ] ].
 
-	choice := (UIManager default
+	choice := (self uiManager
 		           request:
 		           'Start typing for suggestions (3 characters minimum)'
 		           initialAnswer: Protocol unclassified
