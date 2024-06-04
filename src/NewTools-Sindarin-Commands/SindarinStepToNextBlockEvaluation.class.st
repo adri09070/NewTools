@@ -44,23 +44,25 @@ SindarinStepToNextBlockEvaluation >> errorString [
 { #category : 'executing' }
 SindarinStepToNextBlockEvaluation >> execute [
 
-	| debugger sender depth currentScope |
+	| debugger scopes depth currentScope sender |
 	debugger := self debuggerPresenter sindarinDebugger.
 	self debuggerPresenter debuggerActionModel preventUpdatesDuring: [
 		currentScope := debugger currentASTScope.
 		sender := debugger context home sender.
+		scopes := { currentScope } asSet.
 
 
 		depth := 0.
 		errorString := nil.
 		debugger step.
 		[
-		(currentScope
-		 == (currentScope := debugger currentASTScope) outerScope and: [
+		((scopes includes:
+			  (currentScope := debugger currentASTScope) outerScope) and: [
 			 currentScope isBlockScope ]) or: [ errorString notNil ] ]
 			whileFalse: [
 				debugger step.
 				depth := depth + 1.
+				scopes add: currentScope.
 				depth = self maxDepth ifTrue: [
 					errorString := self notFoundErrorString ].
 				debugger context == sender ifTrue: [
